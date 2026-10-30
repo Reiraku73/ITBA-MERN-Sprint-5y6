@@ -2,6 +2,11 @@ import 'dotenv/config';
 import mongoose from 'mongoose';
 import Product from './models/Product.js';
 import { productos } from './data/productos.js';
+import dns from 'node:dns';
+
+// Fuerza DNS públicos (Google y Cloudflare) para resolver la URI mongodb+srv://.
+// Algunos DNS de routers/proveedores rechazan las consultas SRV que usa Atlas.
+dns.setServers(['8.8.8.8', '1.1.1.1']);
 
 const DEFAULT_STOCK = 10;
 
