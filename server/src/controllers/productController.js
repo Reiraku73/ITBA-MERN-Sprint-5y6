@@ -12,6 +12,37 @@ export async function getProductos(req, res) {
   res.status(200).json({ data: productosDB, error: null });
 }
 
+// GET /api/productos/:id
+// Un ID mal formado lo convierte errorHandler en 400 (CastError).
+export async function getProductoById(req, res){
+    const producto = await Product.findById(req.params.id)
+    if (!producto) throw new ApiError(404, 'No hay productos con ese ID')
+    
+    res.status(200).json({data: producto, error: null})
+}
+
+// POST /api/productos
+// Los errores de validación del esquema los convierte errorHandler en 422.
+export async function createProducto(req, res){
+    const { nombre, descripcion, precio, stock, imagenUrl, imagen, categoria, destacado, specs } =
+    req.body ?? {};
+
+    const producto = new Product({
+        nombre,
+        descripcion,
+        precio,
+        stock,
+        imagenUrl: imagenUrl ?? imagen,
+        categoria,
+        destacado,
+        specs,
+    });
+
+    await producto.save()
+
+    res.status(201).json({data: producto, error: null})
+}
+
 // PUT /api/productos/:id
 export async function updateProducto(req, res) {
   const { id } = req.params;
