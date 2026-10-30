@@ -2137,3 +2137,54 @@ main > section {
     align-items: start;
   }
 }
+
+/* ==========================================================================
+   Administración de productos
+   ========================================================================== */
+.admin-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  background: var(--color-paper);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius);
+  padding: var(--space-3);
+}
+.admin-form__campo { display: flex; flex-direction: column; gap: 0.35rem; }
+.admin-form__campo label,
+.admin-form__specs legend { font-weight: 700; font-size: 0.9rem; }
+.admin-form input[type="text"],
+.admin-form input[type="number"],
+.admin-form select,
+.admin-form textarea {
+  width: 100%;
+  padding: 0.75rem 0.9rem;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius);
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: inherit;
+  font-size: 1rem;
+}
+.admin-form [aria-invalid="true"] { border-color: #B3413B; }
+.admin-form__error { font-size: 0.8rem; color: #B3413B; margin: 0; }
+.admin-form__error-servidor {
+  padding: var(--space-2);
+  border: 1px solid #B3413B;
+  border-radius: var(--radius);
+  color: #B3413B;
+  background: #FBEDEC;
+}
+.admin-form__check { display: flex; align-items: center; gap: 0.6rem; }
+.admin-form__specs { border: 1px solid var(--color-line); border-radius: var(--radius); padding: var(--space-2); display: flex; flex-direction: column; gap: var(--space-2); }
+.admin-form__spec-fila { display: flex; flex-wrap: wrap; gap: var(--space-1); }
+.admin-form__spec-fila input { flex: 1 1 10rem; }
+.admin-form .btn:disabled { opacity: 0.6; cursor: not-allowed; }
+.admin-listado__encabezado { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-2); margin-bottom: var(--space-3); }
+.admin-listado__buscador input { width: 100%; max-width: 28rem; padding: 0.75rem 0.9rem; border: 1px solid var(--color-line); border-radius: var(--radius); background: var(--color-paper); font-family: inherit; font-size: 1rem; }
+.admin-listado__mensaje { padding: var(--space-2); border: 1px solid var(--color-salvia); border-radius: var(--radius); background: var(--color-paper); margin-top: var(--space-2); }
+.admin-listado__lista { margin-top: var(--space-3); display: flex; flex-direction: column; gap: var(--space-2); }
+.admin-listado__item { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-2); background: var(--color-paper); border: 1px solid var(--color-line); border-radius: var(--radius); padding: var(--space-2); }
+.admin-listado__info { display: flex; flex-direction: column; }
+.admin-listado__info span { color: var(--color-ink-soft); font-size: 0.9rem; }
+.admin-listado__acciones { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-1); }

@@ -4,6 +4,9 @@ import Header from './components/layout/Header.jsx';
 import Footer from './components/layout/Footer.jsx';
 import ScrollToTop from './components/layout/ScrollToTop.jsx';
 import ErrorBoundary from './components/ui/ErrorBoundary.jsx';
+import CrearProducto from './pages/admin/CrearProducto.jsx';
+import ProductosAdmin from './pages/admin/ProductosAdmin.jsx';
+import EditarProducto from './pages/admin/EditarProducto.jsx';
 
 import { useAuth } from './hooks/useAuth.js';
 
@@ -71,6 +74,10 @@ function AppRoutes({ cart }) {
         <Route path="/terminos" element={<Terminos />} />
         <Route path="/privacidad" element={<Privacidad />} />
         <Route path="/cambios-devoluciones" element={<CambiosDevoluciones />} />
+
+        <Route path="/admin/crear-producto" element={<CrearProducto />} />
+        <Route path="/admin/productos" element={<ProductosAdmin />} />
+        <Route path="/admin/editar-producto/:id" element={<EditarProducto />} />
 
         <Route path="/login" element={usuario ? <Navigate to="/cuenta" replace /> : <Login onLogin={iniciarSesion} />} />
         <Route path="/register" element={usuario ? <Navigate to="/cuenta" replace /> : <Register onRegistrar={registrarUsuario} />} />
