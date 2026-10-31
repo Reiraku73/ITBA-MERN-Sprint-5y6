@@ -1,22 +1,29 @@
 import { Link } from 'react-router-dom'
+import SafeImage from '../ui/SafeImage'
 
 function formatearPrecio(valor) {
   return '$' + valor.toLocaleString('es-AR')
 }
 
 function ProductCard({ producto, onAgregar }) {
+  // categoria e imagen son opcionales en el modelo: un producto cargado sin
+  // ellos no tiene que romper el catálogo.
+  const alt = producto.categoria
+    ? `${producto.nombre}, ${producto.categoria.toLowerCase()}`
+    : producto.nombre
+
   return (
     <li>
       <article className="producto-card">
-        <Link to={`/producto/${producto.id}`} className="producto-card__link">
+        <Link to={`/productos/${producto.id}`} className="producto-card__link">
           <figure className="producto-card__media">
-            <img 
-              src={producto.imagen} 
-              alt={`${producto.nombre}, ${producto.categoria.toLowerCase()}`} 
-              width="600" 
-              height="600" 
-              loading="lazy" 
-            />  
+            <SafeImage
+              src={producto.imagen}
+              alt={alt}
+              width={600}
+              height={600}
+              loading="lazy"
+            />
           </figure>
           <div className="producto-card__info">
             <p className="producto-card__categoria">{producto.categoria}</p>

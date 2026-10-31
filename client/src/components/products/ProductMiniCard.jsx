@@ -11,7 +11,7 @@ export default function ProductMiniCard({ producto }) {
 
   return (
     <article className="mini-card">
-      <Link to={`/producto/${producto.id}`} className="mini-card__link">
+      <Link to={`/productos/${producto.id}`} className="mini-card__link">
         <div className="mini-card__media">
           <SafeImage src={producto.imagen} alt="" width={400} height={400} loading="lazy" />
         </div>

@@ -52,7 +52,7 @@ function AppRoutes({ cart }) {
       <Routes>
         <Route path="/" element={<Home onAgregar={cart.addItem} />} />
         <Route path="/productos" element={<Productos onAgregar={cart.addItem} />} />
-        <Route path="/producto/:id" element={<Producto onAgregar={cart.addItem} />} />
+        <Route path="/productos/:id" element={<Producto onAgregar={cart.addItem} />} />
         <Route
           path="/carrito"
           element={

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useProductos } from '../../hooks/useProductos';
+import SafeImage from '../ui/SafeImage';
 
 export default function HeroCarousel() {
   const { productos: slidesArray, cargando, error, reintentar } = useProductos();
@@ -48,21 +49,23 @@ export default function HeroCarousel() {
             </div>
           ) : cargando ? (
             <div className="hero__carousel-loading">Cargando destacados...</div>
-          ) : (
+          ) : slidesArray.length === 0 ? null : (
             <div className="hero__carousel" id="hero-carousel">
               {(() => {
-                const slideActual = slidesArray[slide];
+                // ?? slidesArray[0]: si la lista se achica (se borra un
+                // producto) el índice guardado puede quedar fuera de rango.
+                const slideActual = slidesArray[slide] ?? slidesArray[0];
 
                 return (
                   <Link
                     key={slideActual.id}
                     className="hero__carousel-slide"
-                    to={`/producto/${slideActual.id}`}
+                    to={`/productos/${slideActual.id}`}
                     style={{ '--slide-duration': `${SLIDE_DURATION}ms` }}
                   >
-                    <img
+                    <SafeImage
                       className="hero__carousel-img"
-                      src={`${slideActual.imagen}`}
+                      src={slideActual.imagen}
                       alt={`${slideActual.nombre}, pieza destacada de Hermanos Jota`}
                     />
                   </Link>

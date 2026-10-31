@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react'
 
-const API_URL = 'http://localhost:3001/api/opiniones'
+// Misma base que el resto de la app (VITE_API_URL): así en el deploy no
+// queda apuntando a localhost.
+const API_BASE = (import.meta.env.VITE_API_URL ?? 'http://localhost:3001/api').replace(/\/+$/, '')
+const API_URL = `${API_BASE}/opiniones`
 
 export function useOpinions() {
   const [opiniones, setOpiniones] = useState([])

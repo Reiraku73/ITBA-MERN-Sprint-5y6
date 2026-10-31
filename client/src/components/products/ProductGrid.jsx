@@ -21,7 +21,7 @@ export default function ProductGrid({ onAgregar }) {
     <section className="productos-listado" aria-labelledby="productos-listado-title">
       <h1 id="productos-listado-title">Catálogo completo</h1>
       <p className="productos-listado__intro">
-        Once piezas, cada una fabricada a mano en nuestro taller. Elegí una
+        Cada pieza está fabricada a mano en nuestro taller. Elegí una
         para ver medidas, materiales y acabados en detalle.
       </p>
 
@@ -29,6 +29,8 @@ export default function ProductGrid({ onAgregar }) {
         <div style={{ textAlign: 'center', padding: '3rem', color: 'var(--color-ink-soft)' }}>
           Cargando el catálogo...
         </div>
+      ) : productos.length === 0 ? (
+        <p className="state-message">Todavía no hay productos en el catálogo.</p>
       ) : (
         <ul className="productos-listado__grid" id="productos-listado-grid">
           {productos.map((producto) => (
