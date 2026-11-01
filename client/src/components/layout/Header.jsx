@@ -38,11 +38,11 @@ export default function Header({ cantidadCarrito = 0 }) {
         </button>
 
         <NavLink to="/cuenta" className="header__icon-link">
-          <img src="icons/user.svg" alt="" width="24" height="24" />
+          <img src="/icons/user.svg" alt="" width="24" height="24" />
         </NavLink>
 
         <NavLink to="/carrito" className="header__icon-link header__cart">
-          <img src="icons/cart.svg" alt="" width="24" height="24" />
+          <img src="/icons/cart.svg" alt="" width="24" height="24" />
           <span className="cart-count" aria-label={`${cantidadCarrito} productos en el carrito`}>
             {cantidadCarrito}
           </span>

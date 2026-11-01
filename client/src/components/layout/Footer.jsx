@@ -20,12 +20,12 @@ const REDES_SOCIALES = [
   {
     nombre: 'Instagram',
     url: 'https://instagram.com/hermanosjota_ba',
-    icono: 'icons/instagram.svg',
+    icono: '/icons/instagram.svg',
   },
   {
     nombre: 'WhatsApp',
     url: 'https://wa.me/5491145678900',
-    icono: 'icons/whatsapp.svg',
+    icono: '/icons/whatsapp.svg',
   },
 ];
 
