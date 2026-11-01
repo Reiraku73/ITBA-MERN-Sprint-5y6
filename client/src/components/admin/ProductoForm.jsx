@@ -7,6 +7,7 @@ const VALORES_VACIOS = {
   nombre: '',
   categoria: '',
   precio: '',
+  stock: '',
   imagen: '',
   destacado: false,
   descripcion: '',
@@ -19,6 +20,7 @@ function desdeProducto(producto) {
     nombre: producto.nombre ?? '',
     categoria: producto.categoria ?? '',
     precio: producto.precio != null ? String(producto.precio) : '',
+    stock: producto.stock != null ? String(producto.stock) : '',
     imagen: producto.imagen ?? '',
     destacado: Boolean(producto.destacado),
     descripcion: producto.descripcion ?? '',
@@ -34,6 +36,7 @@ function aProducto(valores) {
     nombre: valores.nombre.trim(),
     categoria: valores.categoria,
     precio: Number(valores.precio),
+    stock: Number(valores.stock),
     imagen: valores.imagen.trim(),
     destacado: valores.destacado,
     descripcion: valores.descripcion.trim(),
@@ -56,6 +59,11 @@ function validar(valores) {
   const precio = Number(valores.precio);
   if (valores.precio.trim() === '' || !Number.isFinite(precio) || precio <= 0) {
     errores.precio = 'Ingresá un precio mayor a 0.';
+  }
+
+  const stock = Number(valores.stock);
+  if (valores.stock.trim() === '' || !Number.isInteger(stock) || stock < 0) {
+    errores.stock = 'Ingresá un stock entero, 0 o mayor.';
   }
 
   const imagen = valores.imagen.trim();
@@ -193,6 +201,20 @@ export default function ProductoForm({ valoresIniciales, onSubmit, textoBoton = 
           onChange={handleChange}
           aria-invalid={Boolean(errores.precio)}
           aria-describedby={errores.precio ? 'precio-error' : undefined}
+        />
+      </Campo>
+
+      <Campo id="stock" label="Stock (unidades)" error={errores.stock}>
+        <input
+          id="stock"
+          name="stock"
+          type="number"
+          min="0"
+          step="1"
+          value={valores.stock}
+          onChange={handleChange}
+          aria-invalid={Boolean(errores.stock)}
+          aria-describedby={errores.stock ? 'stock-error' : undefined}
         />
       </Campo>
 
