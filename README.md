@@ -13,7 +13,6 @@ Aplicación e-commerce para **Hermanos Jota**, una mueblería artesanal argentin
 | --- | --- | --- |
 | **Frontend** | Vercel | (https://itba-mern-sprint-5y6.vercel.app/) |
 | **Backend (API)** | Render |  (https://hermanos-jota-api-4fen.onrender.com/api/productos) |
-| **Health check** | Render | (https://hermanos-jota-api-4fen.onrender.com/api/health) |
 
 > El backend está en el plan gratuito de Render: si estuvo un rato sin uso, la primera petición puede tardar ~50 segundos mientras el servicio se despierta.
 
@@ -107,7 +106,6 @@ Al responder, el `_id` de MongoDB se expone como **`id`** y se ocultan `_id` y `
 
 | Método | Ruta | Descripción | Éxito |
 | --- | --- | --- | --- |
-| `GET` | `/api/health` | Chequeo de salud del servidor | `200` |
 | `GET` | `/api/productos` | Devuelve todos los productos | `200` |
 | `GET` | `/api/productos/:id` | Devuelve un producto por su `id` | `200` |
 | `POST` | `/api/productos` | Crea un producto | `201` |
@@ -415,7 +413,6 @@ Casos de error a verificar:
 4. **Start Command:** `npm start`
 5. **Environment:** cargar `MONGODB_URI`, `CORS_ORIGIN` (con la URL de Vercel) y `NODE_ENV=production`.
 6. En MongoDB Atlas → **Network Access**, permitir `0.0.0.0/0` para que Render pueda conectarse.
-7. Verificar en `https://<servicio>.onrender.com/api/health`.
 
 ## Frontend en Vercel
 
