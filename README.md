@@ -11,9 +11,9 @@ Aplicación e-commerce para **Hermanos Jota**, una mueblería artesanal argentin
 
 | Parte | Plataforma | URL |
 | --- | --- | --- |
-| **Frontend** | Vercel | ⚠️ COMPLETAR |
-| **Backend (API)** | Render | ⚠️ COMPLETAR |
-| **Health check** | Render | ⚠️ COMPLETAR`/api/health` |
+| **Frontend** | Vercel | (https://itba-mern-sprint-5y6.vercel.app/) |
+| **Backend (API)** | Render |  (https://hermanos-jota-api-4fen.onrender.com/api/productos) |
+| **Health check** | Render | (https://hermanos-jota-api-4fen.onrender.com/api/health) |
 
 > El backend está en el plan gratuito de Render: si estuvo un rato sin uso, la primera petición puede tardar ~50 segundos mientras el servicio se despierta.
 
@@ -367,7 +367,7 @@ cd server
 node scripts/test-endpoints.mjs
 
 # Contra el despliegue en Render
-node scripts/test-endpoints.mjs https://⚠️COMPLETAR.onrender.com
+node scripts/test-endpoints.mjs https://hermanos-jota-api-4fen.onrender.com
 ```
 
 ## Prueba manual (Thunder Client / Postman)
