@@ -1,17 +1,77 @@
-import { productos } from '../data/productos.js'
-import { ApiError } from '../middleware/errorHandler.js'
+import Product from '../models/Product.js';
+import { ApiError } from '../middleware/errorHandler.js';
 
-export function getProductos (req, res) {
-    res.status(200).json(productos)
+// Campos que el cliente NO puede modificar en un PUT
+const CAMPOS_PROTEGIDOS = ['_id', 'id', '__v'];
+
+// GET /api/productos
+// Devuelve todos los productos guardados en MongoDB
+export async function getProductos(req, res) {
+  const productosDB = await Product.find();
+
+  res.status(200).json({ data: productosDB, error: null });
 }
 
-export function getProducto(req, res) {
-    const { id } = req.params;
+// GET /api/productos/:id
+// Un ID mal formado lo convierte errorHandler en 400 (CastError).
+export async function getProductoById(req, res){
+    const producto = await Product.findById(req.params.id)
+    if (!producto) throw new ApiError(404, 'No hay productos con ese ID')
+    
+    res.status(200).json({data: producto, error: null})
+}
 
-    const producto = productos.find((producto) => producto.id === id);
-    // El 404 sale por el manejador de errores central, así tiene el mismo
-    // formato { data: null, error: { message, code } } que cualquier otro error.
-    if (!producto) throw new ApiError(404, "No hay productos con ese ID");
+// POST /api/productos
+// Los errores de validación del esquema los convierte errorHandler en 422.
+export async function createProducto(req, res){
+    const { nombre, descripcion, precio, stock, imagenUrl, imagen, categoria, destacado, specs } =
+    req.body ?? {};
 
-    res.json({ data: producto, error: null });
+    const producto = new Product({
+        nombre,
+        descripcion,
+        precio,
+        stock,
+        imagenUrl: imagenUrl ?? imagen,
+        categoria,
+        destacado,
+        specs,
+    });
+
+    await producto.save()
+
+    res.status(201).json({data: producto, error: null})
+}
+
+// PUT /api/productos/:id
+export async function updateProducto(req, res) {
+  const { id } = req.params;
+  const cambios = req.body;
+
+  if (!cambios || typeof cambios !== 'object' || Object.keys(cambios).length === 0) {
+    throw new ApiError(400, 'Enviá al menos un campo para actualizar.');
+  }
+
+  for (const campo of CAMPOS_PROTEGIDOS) {
+    delete cambios[campo];
+  }
+
+  const producto = await Product.findById(id);
+  if (!producto) throw new ApiError(404, 'No hay productos con ese ID');
+
+  producto.set(cambios);
+  const productoActualizado = await producto.save();
+
+  res.status(200).json({ data: productoActualizado, error: null });
+}
+
+// DELETE /api/productos/:id
+// Elimina un producto y devuelve el producto borrado
+export async function deleteProducto(req, res) {
+  const { id } = req.params;
+
+  const productoEliminado = await Product.findByIdAndDelete(id);
+  if (!productoEliminado) throw new ApiError(404, 'No hay productos con ese ID');
+
+  res.status(200).json({ data: productoEliminado, error: null });
 }
