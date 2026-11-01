@@ -41,6 +41,16 @@ export default function errorHandler(err, req, res, next) {
   } else if (err.type === 'entity.too.large') {
     status = 413;
     message = 'El contenido enviado es demasiado grande.';
+  } else if (err.name === 'ValidationError') {
+    // Error de validación del esquema de Mongoose (campo requerido, mínimo, etc.)
+    status = 422;
+    message = Object.values(err.errors).map((e) => e.message).join(' ');
+  } else if (err.name === 'CastError') {
+    // Valor con tipo inválido: un ID mal formado o un precio no numérico
+    status = 400;
+    message = err.path === '_id'
+      ? 'El ID indicado no es válido.'
+      : `El valor de "${err.path}" no es válido.`;
   }
 
   // Los errores del servidor se registran (con método y URL para poder
