@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 
-const FOCUSABLE = 'button:not([disabled]), [href], input:not([disabled]), [tabindex]:not([tabindex="-1"])';
+const FOCUSABLE =
+  'button:not([disabled]), [href], input:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
 /**
  * Comportamiento común de cualquier diálogo modal (el visor de imágenes y
@@ -18,7 +19,9 @@ export function useDialog({ containerRef, initialFocusRef, onClose }) {
   useEffect(() => {
     const previouslyFocused = document.activeElement;
     const target =
-      initialFocusRef?.current ?? containerRef.current?.querySelector(FOCUSABLE) ?? containerRef.current;
+      initialFocusRef?.current ??
+      containerRef.current?.querySelector(FOCUSABLE) ??
+      containerRef.current;
     target?.focus();
     return () => previouslyFocused?.focus?.();
     // Solo al abrir/cerrar: los refs son estables.

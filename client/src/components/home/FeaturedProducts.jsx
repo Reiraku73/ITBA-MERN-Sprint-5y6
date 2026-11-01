@@ -1,13 +1,12 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import ProductCard from '../products/ProductCard.jsx'
+import ProductCard from '../products/ProductCard.jsx';
 import { useProductos } from '../../hooks/useProductos';
-const CANTIDAD_SKELETONS = 5
+const CANTIDAD_SKELETONS = 5;
 
-// onAgregar de Franco
-function FeaturedProducts({ onAgregar }) {
-  const { productos, cargando, error, reintentar } = useProductos()
-  const destacados = productos.filter((producto) => producto.destacado)
+function FeaturedProducts() {
+  const { productos, cargando, error, reintentar } = useProductos();
+  const destacados = productos.filter((producto) => producto.destacado);
 
   return (
     <section className="productos-destacados">
@@ -27,16 +26,14 @@ function FeaturedProducts({ onAgregar }) {
 
         {!cargando &&
           !error &&
-          destacados.map((producto) => (
-            <ProductCard key={producto.id} producto={producto} onAgregar={onAgregar} />
-          ))}
+          destacados.map((producto) => <ProductCard key={producto.id} producto={producto} />)}
       </ul>
 
       <Link to="/productos" className="btn btn--primary productos-destacados__ver-todo">
         Ver todos los productos
       </Link>
     </section>
-  )
+  );
 }
 
-export default FeaturedProducts
+export default FeaturedProducts;

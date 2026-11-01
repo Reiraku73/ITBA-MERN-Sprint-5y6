@@ -9,9 +9,8 @@ export default function HeroCarousel() {
 
   const SLIDE_DURATION = 7000;
 
-
   useEffect(() => {
-    const matches = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const matches = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     if (matches) return;
     if (!slidesArray || slidesArray.length === 0) return;
@@ -31,8 +30,7 @@ export default function HeroCarousel() {
         <div className="hero__content">
           <h1>Muebles con historia, hechos para durar</h1>
           <p className="hero__subtitle">
-            Diseño artesanal en madera maciza, pensado para acompañar tu casa
-            por generaciones.
+            Diseño artesanal en madera maciza, pensado para acompañar tu casa por generaciones.
           </p>
           <Link to="/productos" className="btn btn--primary hero__cta">
             Ver colección
@@ -41,9 +39,22 @@ export default function HeroCarousel() {
 
         <div className="hero__media">
           {error ? (
-            <div className="hero__carousel-error" style={{ padding: '2rem', textAlign: 'center', background: '#ffebee', color: '#c62828', borderRadius: '8px' }}>
+            <div
+              className="hero__carousel-error"
+              style={{
+                padding: '2rem',
+                textAlign: 'center',
+                background: '#ffebee',
+                color: '#c62828',
+                borderRadius: '8px',
+              }}
+            >
               <p>⚠️ Ha habido un error: {error}</p>
-              <button onClick={reintentar} className="btn btn--secondary" style={{ marginTop: '1rem' }}>
+              <button
+                onClick={reintentar}
+                className="btn btn--secondary"
+                style={{ marginTop: '1rem' }}
+              >
                 Reintentar
               </button>
             </div>

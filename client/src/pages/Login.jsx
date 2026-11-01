@@ -1,44 +1,44 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
-import FormField from '../components/ui/FormField.jsx'
-import { EMAIL_VALIDO } from '../utils/validators.js'
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import FormField from '../components/ui/FormField.jsx';
+import { EMAIL_VALIDO } from '../utils/validators.js';
 
-const FORM_VACIO = { email: '', password: '' }
+const FORM_VACIO = { email: '', password: '' };
 
 function Login({ onLogin }) {
-  const [form, setForm] = useState(FORM_VACIO)
-  const [errores, setErrores] = useState({})
+  const [form, setForm] = useState(FORM_VACIO);
+  const [errores, setErrores] = useState({});
 
   function cambiar(e) {
-    setForm({ ...form, [e.target.name]: e.target.value })
+    setForm({ ...form, [e.target.name]: e.target.value });
   }
 
   function validar(datos) {
-    const nuevosErrores = {}
+    const nuevosErrores = {};
 
     if (!datos.email.trim()) {
-      nuevosErrores.email = 'Ingresá tu email.'
+      nuevosErrores.email = 'Ingresá tu email.';
     } else if (!EMAIL_VALIDO.test(datos.email)) {
-      nuevosErrores.email = 'Ese email no parece válido (ej: nombre@mail.com).'
+      nuevosErrores.email = 'Ese email no parece válido (ej: nombre@mail.com).';
     }
 
     if (!datos.password) {
-      nuevosErrores.password = 'Ingresá tu contraseña.'
+      nuevosErrores.password = 'Ingresá tu contraseña.';
     }
 
-    return nuevosErrores
+    return nuevosErrores;
   }
 
   function enviar(e) {
-    e.preventDefault()
+    e.preventDefault();
 
-    const erroresEncontrados = validar(form)
-    setErrores(erroresEncontrados)
-    if (Object.keys(erroresEncontrados).length > 0) return
+    const erroresEncontrados = validar(form);
+    setErrores(erroresEncontrados);
+    if (Object.keys(erroresEncontrados).length > 0) return;
 
-    const mensaje = onLogin(form)
+    const mensaje = onLogin(form);
     if (mensaje) {
-      setErrores({ general: mensaje })
+      setErrores({ general: mensaje });
     }
   }
 
@@ -69,7 +69,9 @@ function Login({ onLogin }) {
           />
 
           {errores.general && (
-            <p className="form-field__error" role="alert">{errores.general}</p>
+            <p className="form-field__error" role="alert">
+              {errores.general}
+            </p>
           )}
 
           <button type="submit" className="btn btn--primary auth__submit">
@@ -82,7 +84,7 @@ function Login({ onLogin }) {
         </p>
       </div>
     </section>
-  )
+  );
 }
 
-export default Login
+export default Login;

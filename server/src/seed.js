@@ -6,7 +6,9 @@ import dns from 'node:dns';
 
 // Fuerza DNS públicos (Google y Cloudflare) para resolver la URI mongodb+srv://.
 // Algunos DNS de routers/proveedores rechazan las consultas SRV que usa Atlas.
-dns.setServers(['8.8.8.8', '1.1.1.1']);
+if (process.env.NODE_ENV !== 'production') {
+  dns.setServers(['8.8.8.8', '1.1.1.1']);
+}
 
 const DEFAULT_STOCK = 10;
 
@@ -22,7 +24,9 @@ async function seed() {
   }));
 
   const result = await Product.bulkWrite(ops);
-  console.log(`Insertados: ${result.upsertedCount} | Ya existían: ${productos.length - result.upsertedCount}`);
+  console.log(
+    `Insertados: ${result.upsertedCount} | Ya existían: ${productos.length - result.upsertedCount}`,
+  );
 
   await mongoose.disconnect();
 }

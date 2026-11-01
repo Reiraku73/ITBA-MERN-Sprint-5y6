@@ -1,7 +1,6 @@
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import ProductoForm from '../../components/admin/ProductoForm.jsx';
 import { crearProducto } from '../../services/productService.js';
-
 
 export default function CrearProducto() {
   const navigate = useNavigate();
@@ -16,9 +15,6 @@ export default function CrearProducto() {
   return (
     <main>
       <section>
-        <Link to="/admin/productos" className="admin-volver">
-          <span aria-hidden="true">←</span> Volver al listado
-        </Link>
         <h1>Crear producto</h1>
         <ProductoForm onSubmit={handleCrear} textoBoton="Crear producto" />
       </section>

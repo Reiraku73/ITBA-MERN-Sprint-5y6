@@ -25,7 +25,11 @@ export default function ProductMiniCard({ producto }) {
         type="button"
         className="mini-card__heart"
         aria-pressed={favorito}
-        aria-label={favorito ? `Quitar ${producto.nombre} de favoritos` : `Guardar ${producto.nombre} en favoritos`}
+        aria-label={
+          favorito
+            ? `Quitar ${producto.nombre} de favoritos`
+            : `Guardar ${producto.nombre} en favoritos`
+        }
         onClick={() => toggle(producto.id)}
       >
         <HeartIcon filled={favorito} />

@@ -1,8 +1,8 @@
-import { Router } from 'express'
-import { getOpiniones } from '../controllers/opinionsController.js'
+import { Router } from 'express';
+import { getOpiniones } from '../controllers/opinionsController.js';
 
-const router = Router()
+const router = Router();
 
-router.get('/', getOpiniones)
+router.get('/', getOpiniones);
 
-export default router
+export default router;

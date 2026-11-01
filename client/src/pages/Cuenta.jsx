@@ -1,6 +1,6 @@
-import { useState } from 'react'
-import FormField from '../components/ui/FormField.jsx'
-import { TELEFONO_VALIDO } from '../utils/validators.js'
+import { useState } from 'react';
+import FormField from '../components/ui/FormField.jsx';
+import { TELEFONO_VALIDO } from '../utils/validators.js';
 
 function formDesdeUsuario(usuario) {
   return {
@@ -10,73 +10,72 @@ function formDesdeUsuario(usuario) {
     passwordActual: '',
     passwordNueva: '',
     confirmacion: '',
-  }
+  };
 }
 
 function Cuenta({ usuario, onActualizar, onLogout }) {
-  const [form, setForm] = useState(() => formDesdeUsuario(usuario))
-  const [errores, setErrores] = useState({})
-  const [editando, setEditando] = useState(false)
-  const [exito, setExito] = useState(false)
+  const [form, setForm] = useState(() => formDesdeUsuario(usuario));
+  const [errores, setErrores] = useState({});
+  const [editando, setEditando] = useState(false);
+  const [exito, setExito] = useState(false);
 
   function cambiar(e) {
-    setForm({ ...form, [e.target.name]: e.target.value })
+    setForm({ ...form, [e.target.name]: e.target.value });
   }
 
   function empezarEdicion() {
-    setExito(false)
-    setEditando(true)
+    setExito(false);
+    setEditando(true);
   }
 
   function cancelar() {
-    setForm(formDesdeUsuario(usuario))
-    setErrores({})
-    setEditando(false)
+    setForm(formDesdeUsuario(usuario));
+    setErrores({});
+    setEditando(false);
   }
 
   function validar(datos) {
-    const nuevosErrores = {}
+    const nuevosErrores = {};
 
     if (!datos.nombre.trim()) {
-      nuevosErrores.nombre = 'Ingresá tu nombre.'
+      nuevosErrores.nombre = 'Ingresá tu nombre.';
     }
 
     if (!datos.apellido.trim()) {
-      nuevosErrores.apellido = 'Ingresá tu apellido.'
+      nuevosErrores.apellido = 'Ingresá tu apellido.';
     }
 
     if (datos.telefono.trim() && !TELEFONO_VALIDO.test(datos.telefono)) {
-      nuevosErrores.telefono = 'Ese teléfono no parece válido.'
+      nuevosErrores.telefono = 'Ese teléfono no parece válido.';
     }
 
-    const cambiandoPassword =
-      datos.passwordActual || datos.passwordNueva || datos.confirmacion
+    const cambiandoPassword = datos.passwordActual || datos.passwordNueva || datos.confirmacion;
 
     if (cambiandoPassword) {
       if (!datos.passwordActual) {
-        nuevosErrores.passwordActual = 'Ingresá tu contraseña actual.'
+        nuevosErrores.passwordActual = 'Ingresá tu contraseña actual.';
       }
 
       if (datos.passwordNueva.length < 6) {
-        nuevosErrores.passwordNueva = 'La contraseña debe tener al menos 6 caracteres.'
+        nuevosErrores.passwordNueva = 'La contraseña debe tener al menos 6 caracteres.';
       }
 
       if (!datos.confirmacion) {
-        nuevosErrores.confirmacion = 'Repetí la nueva contraseña.'
+        nuevosErrores.confirmacion = 'Repetí la nueva contraseña.';
       } else if (datos.confirmacion !== datos.passwordNueva) {
-        nuevosErrores.confirmacion = 'Las contraseñas no coinciden.'
+        nuevosErrores.confirmacion = 'Las contraseñas no coinciden.';
       }
     }
 
-    return nuevosErrores
+    return nuevosErrores;
   }
 
   function enviar(e) {
-    e.preventDefault()
+    e.preventDefault();
 
-    const erroresEncontrados = validar(form)
-    setErrores(erroresEncontrados)
-    if (Object.keys(erroresEncontrados).length > 0) return
+    const erroresEncontrados = validar(form);
+    setErrores(erroresEncontrados);
+    if (Object.keys(erroresEncontrados).length > 0) return;
 
     const datos = {
       nombre: form.nombre.trim(),
@@ -84,12 +83,12 @@ function Cuenta({ usuario, onActualizar, onLogout }) {
       telefono: form.telefono.trim(),
       passwordActual: form.passwordActual,
       passwordNueva: form.passwordNueva,
-    }
+    };
 
-    const mensaje = onActualizar(datos)
+    const mensaje = onActualizar(datos);
     if (mensaje) {
-      setErrores({ passwordActual: mensaje })
-      return
+      setErrores({ passwordActual: mensaje });
+      return;
     }
 
     setForm({
@@ -100,9 +99,9 @@ function Cuenta({ usuario, onActualizar, onLogout }) {
       passwordActual: '',
       passwordNueva: '',
       confirmacion: '',
-    })
-    setEditando(false)
-    setExito(true)
+    });
+    setEditando(false);
+    setExito(true);
   }
 
   return (
@@ -216,17 +215,13 @@ function Cuenta({ usuario, onActualizar, onLogout }) {
             </button>
           )}
 
-          <button
-            type="button"
-            className="btn btn--secondary cuenta__logout"
-            onClick={onLogout}
-          >
+          <button type="button" className="btn btn--secondary cuenta__logout" onClick={onLogout}>
             Cerrar sesión
           </button>
         </div>
       </form>
     </section>
-  )
+  );
 }
 
-export default Cuenta
+export default Cuenta;

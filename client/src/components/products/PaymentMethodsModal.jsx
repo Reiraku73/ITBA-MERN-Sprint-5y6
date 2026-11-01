@@ -18,7 +18,13 @@ export default function PaymentMethodsModal({ onClose }) {
         if (e.target === e.currentTarget) onClose();
       }}
     >
-      <div className="modal" role="dialog" aria-modal="true" aria-labelledby="pay-modal-title" ref={dialogRef}>
+      <div
+        className="modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="pay-modal-title"
+        ref={dialogRef}
+      >
         <header className="modal__header">
           <h2 id="pay-modal-title">Medios de pago</h2>
           <button
@@ -56,6 +62,6 @@ export default function PaymentMethodsModal({ onClose }) {
         </footer>
       </div>
     </div>,
-    document.body
+    document.body,
   );
 }

@@ -59,35 +59,61 @@ function httpErrorFromResponse(res, body) {
   const data = raw.error && typeof raw.error === 'object' ? raw.error : raw;
   const serverMessage = typeof data.message === 'string' ? data.message : undefined;
   const code = typeof data.code === 'string' ? data.code : undefined;
-  const details = Array.isArray(data.details) ? data.details.filter((d) => typeof d === 'string') : undefined;
+  const details = Array.isArray(data.details)
+    ? data.details.filter((d) => typeof d === 'string')
+    : undefined;
 
   if (res.status >= 500) {
     // Nunca se muestra lo que diga el server en un 5xx: puede ser un
     // mensaje interno. El detalle real queda en los logs del backend.
-    return new HttpError('http', res.status, 'Tuvimos un problema de nuestro lado. Probá de nuevo en unos minutos.', { code });
+    return new HttpError(
+      'http',
+      res.status,
+      'Tuvimos un problema de nuestro lado. Probá de nuevo en unos minutos.',
+      { code },
+    );
   }
   if (res.status === 403) {
-    return new HttpError('http', 403, serverMessage ?? 'No tenés permisos para hacer esto.', { code });
+    return new HttpError('http', 403, serverMessage ?? 'No tenés permisos para hacer esto.', {
+      code,
+    });
   }
   if (res.status === 429) {
-    return new HttpError('http', 429, 'Hiciste demasiados intentos. Esperá un momento y probá de nuevo.', { code });
+    return new HttpError(
+      'http',
+      429,
+      'Hiciste demasiados intentos. Esperá un momento y probá de nuevo.',
+      { code },
+    );
   }
   const detailText = details && details.length > 0 ? `: ${details.join(', ')}` : '';
-  return new HttpError('http', res.status, (serverMessage ?? `No se pudo completar la acción (error ${res.status}).`) + detailText, {
-    code,
-    details,
-  });
+  return new HttpError(
+    'http',
+    res.status,
+    (serverMessage ?? `No se pudo completar la acción (error ${res.status}).`) + detailText,
+    {
+      code,
+      details,
+    },
+  );
 }
 
-// El listado es un array "pelado" y el detalle viene envuelto como
-// { data, error }. Esta función las unifica.
+// Todos los endpoints responden envueltos como { data, error }. Esta función
+// devuelve solo `data`; si algún día llegara un array "pelado", lo deja pasar.
 function unwrap(body) {
   const esEnvoltorio =
-    body !== null && typeof body === 'object' && !Array.isArray(body) && 'data' in body && 'error' in body;
+    body !== null &&
+    typeof body === 'object' &&
+    !Array.isArray(body) &&
+    'data' in body &&
+    'error' in body;
   return esEnvoltorio ? body.data : body;
 }
 
-export async function apiFetch(path, { method = 'GET', body, signal, timeoutMs = DEFAULT_TIMEOUT_MS } = {}) {
+export async function apiFetch(
+  path,
+  { method = 'GET', body, signal, timeoutMs = DEFAULT_TIMEOUT_MS } = {},
+) {
   // Un solo AbortController para dos orígenes de cancelación: el timeout
   // propio y la señal de quien llama (ej. un componente que se desmonta).
   const controller = new AbortController();
@@ -116,11 +142,19 @@ export async function apiFetch(path, { method = 'GET', body, signal, timeoutMs =
       });
     } catch (err) {
       if (timedOut) {
-        throw new HttpError('timeout', 0, 'El servidor tardó demasiado en responder. Probá de nuevo.');
+        throw new HttpError(
+          'timeout',
+          0,
+          'El servidor tardó demasiado en responder. Probá de nuevo.',
+        );
       }
       // Cancelado a propósito por quien llamó: no es un error para mostrar.
       if (signal?.aborted) throw err;
-      throw new HttpError('network', 0, 'No pudimos conectarnos con el servidor. Revisá tu conexión y probá de nuevo.');
+      throw new HttpError(
+        'network',
+        0,
+        'No pudimos conectarnos con el servidor. Revisá tu conexión y probá de nuevo.',
+      );
     }
 
     let payload;
@@ -140,7 +174,11 @@ export async function apiFetch(path, { method = 'GET', body, signal, timeoutMs =
     if (payload === UNPARSEABLE) {
       // Un 2xx con algo que no es JSON (ej. el HTML de un proxy o una URL
       // de API mal configurada) no se puede usar como dato.
-      throw new HttpError('invalid-response', res.status, 'Recibimos una respuesta inesperada del servidor.');
+      throw new HttpError(
+        'invalid-response',
+        res.status,
+        'Recibimos una respuesta inesperada del servidor.',
+      );
     }
     // 204 o cuerpo vacío: no hay datos, y eso es válido.
     return unwrap(payload);

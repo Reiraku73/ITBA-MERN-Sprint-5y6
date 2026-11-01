@@ -23,7 +23,11 @@ export default class ErrorBoundary extends Component {
           <h1>Algo salió mal</h1>
           <p>Tuvimos un problema al mostrar esta página. Probá recargarla o volver al inicio.</p>
           <p>
-            <button type="button" className="btn btn--primary" onClick={() => window.location.reload()}>
+            <button
+              type="button"
+              className="btn btn--primary"
+              onClick={() => window.location.reload()}
+            >
               Recargar página
             </button>{' '}
             <a href="/" className="btn btn--secondary">

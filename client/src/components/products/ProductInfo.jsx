@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import QuantitySelector from './QuantitySelector';
+import { useCart } from '../../hooks/useCart';
 import { CartIcon, CheckIcon, ChevronIcon, LockIcon } from '../ui/Icons';
 import { announce } from '../../utils/announce';
 import { formatCurrency } from '../../utils/formatCurrency';
@@ -8,13 +9,14 @@ import { formatCurrency } from '../../utils/formatCurrency';
 /**
  * Columna derecha de la ficha: título, precio, stock, cantidad y compra.
  *
- *  - onAgregar(producto, cantidad): lo pasa quien maneja el carrito (App).
+ *  - El carrito se toma del contexto (useCart), no por props.
  *  - onShowPayments: abre el modal de medios de pago.
  *
  * `producto.stock` es opcional: si el producto no lo trae, se asume que hay
  * disponibilidad y no se muestra el tope ni el "N disponibles".
  */
-export default function ProductInfo({ producto, onAgregar, onShowPayments }) {
+export default function ProductInfo({ producto, onShowPayments }) {
+  const { addItem } = useCart();
   const [cantidad, setCantidad] = useState(1);
   const [agregado, setAgregado] = useState(false);
   const navigate = useNavigate();
@@ -23,16 +25,16 @@ export default function ProductInfo({ producto, onAgregar, onShowPayments }) {
   const sinStock = tieneStock && producto.stock === 0;
 
   function handleAgregar() {
-    if (!onAgregar || sinStock) return;
-    onAgregar(producto, cantidad);
+    if (sinStock) return;
+    addItem(producto, cantidad);
     announce(`${producto.nombre} agregado al carrito`);
     setAgregado(true);
   }
 
   // "Comprar ahora": suma al carrito y va directo al carrito.
   function handleComprarAhora() {
-    if (!onAgregar || sinStock) return;
-    onAgregar(producto, cantidad);
+    if (sinStock) return;
+    addItem(producto, cantidad);
     navigate('/carrito');
   }
 

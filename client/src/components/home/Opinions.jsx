@@ -1,9 +1,9 @@
-import { useOpinions } from '../../hooks/useOpinions'
+import { useOpinions } from '../../hooks/useOpinions';
 
-const CANTIDAD_SKELETONS = 3
+const CANTIDAD_SKELETONS = 3;
 
 function Opinions() {
-  const { opiniones, cargando, error } = useOpinions()
+  const { opiniones, cargando, error } = useOpinions();
 
   return (
     <section className="opiniones">
@@ -46,7 +46,7 @@ function Opinions() {
           ))}
       </ul>
     </section>
-  )
+  );
 }
 
-export default Opinions
+export default Opinions;

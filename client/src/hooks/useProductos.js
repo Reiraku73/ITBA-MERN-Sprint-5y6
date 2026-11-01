@@ -19,7 +19,10 @@ export function useProductos() {
 
 // Un solo producto.
 export function useProducto(id) {
-  const { data, loading, error, reload } = useApiQuery((signal) => getProductoById(id, { signal }), [id]);
+  const { data, loading, error, reload } = useApiQuery(
+    (signal) => getProductoById(id, { signal }),
+    [id],
+  );
   return {
     producto: data,
     cargando: loading,

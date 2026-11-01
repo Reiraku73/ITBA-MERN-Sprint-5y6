@@ -23,4 +23,4 @@ export const opiniones = [
     texto:
       'Se nota el trabajo artesanal en cada detalle. La atención también fue excelente de principio a fin.',
   },
-]
+];

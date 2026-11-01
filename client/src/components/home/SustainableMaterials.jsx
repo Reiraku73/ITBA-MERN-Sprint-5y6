@@ -31,13 +31,7 @@ function MaterialCard({ titulo, descripcion, imagen, alt }) {
   return (
     <li className="material-card">
       <figure>
-        <img
-          src={imagen}
-          alt={alt}
-          width="500"
-          height="500"
-          loading="lazy"
-        />
+        <img src={imagen} alt={alt} width="500" height="500" loading="lazy" />
       </figure>
       <h3>{titulo}</h3>
       <p>{descripcion}</p>
@@ -51,9 +45,9 @@ export default function SustainableMaterials() {
       <div className="materiales__intro">
         <h2>Materiales sustentables</h2>
         <p>
-          Nuestro compromiso con el medio ambiente guía cada decisión de
-          abastecimiento: madera certificada, acabados naturales y un
-          programa propio para que cada pieza tenga una segunda vida.
+          Nuestro compromiso con el medio ambiente guía cada decisión de abastecimiento: madera
+          certificada, acabados naturales y un programa propio para que cada pieza tenga una segunda
+          vida.
         </p>
       </div>
 

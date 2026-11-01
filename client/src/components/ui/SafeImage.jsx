@@ -19,7 +19,9 @@ export default function SafeImage({ src, alt, className, width, height, ...rest 
     return (
       <div
         className={`safe-image safe-image--broken${className ? ` ${className}` : ''}`}
-        {...(alt ? { role: 'img', 'aria-label': `${alt} (imagen no disponible)` } : { 'aria-hidden': true })}
+        {...(alt
+          ? { role: 'img', 'aria-label': `${alt} (imagen no disponible)` }
+          : { 'aria-hidden': true })}
         style={{ aspectRatio: width && height ? `${width} / ${height}` : undefined }}
       >
         <span aria-hidden="true">Imagen no disponible</span>

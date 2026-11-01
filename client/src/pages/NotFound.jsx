@@ -5,7 +5,7 @@ export default function NotFound() {
       <h1>404</h1>
       <h2>Página no encontrada</h2>
       <p>Lo sentimos, la página que estás buscando no existe o fue movida.</p>
-      
+
       <Link to="/" className="btn btn--primary">
         Volver al Inicio
       </Link>

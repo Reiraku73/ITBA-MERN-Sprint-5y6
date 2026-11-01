@@ -36,21 +36,15 @@ export default function Footer() {
   return (
     <footer className="site-footer">
       <div className="site-footer__grid">
-
         {/* Marca */}
         <div className="site-footer__brand">
           <div className="site-footer__logo">
-            <img
-              src="/images/branding/isotipo.png"
-              alt=""
-              width="28"
-              height="34"
-            />
+            <img src="/images/branding/isotipo.png" alt="" width="28" height="34" />
             <span className="header__wordmark">Hermanos Jota</span>
           </div>
           <p>
-            Muebles artesanales en madera, fabricados a mano en nuestro
-            taller desde hace más de 20 años.
+            Muebles artesanales en madera, fabricados a mano en nuestro taller desde hace más de 20
+            años.
           </p>
         </div>
 
@@ -93,27 +87,19 @@ export default function Footer() {
               <br />
               Barrio de San Cristóbal, CABA, Argentina
             </p>
-            <p className="site-footer__horarios">
-              Lun. a Vie. 10:00–19:00 · Sáb. 10:00–14:00
-            </p>
+            <p className="site-footer__horarios">Lun. a Vie. 10:00–19:00 · Sáb. 10:00–14:00</p>
           </address>
 
           <ul className="site-footer__social">
             {REDES_SOCIALES.map((red) => (
               <li key={red.nombre}>
-                <a
-                  href={red.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={red.nombre}
-                >
+                <a href={red.url} target="_blank" rel="noopener noreferrer" aria-label={red.nombre}>
                   <img src={red.icono} alt="" width="24" height="24" />
                 </a>
               </li>
             ))}
           </ul>
         </div>
-
       </div>
 
       <div className="site-footer__bottom">

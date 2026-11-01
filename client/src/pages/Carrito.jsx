@@ -1,15 +1,11 @@
 import { Link } from 'react-router-dom';
 import CartList from '../components/cart/CartList';
 import CartSummary from '../components/cart/CartSummary';
+import { useCart } from '../hooks/useCart';
 
-export default function Carrito({
-  items,
-  itemCount,
-  subtotal,
-  onQuantityChange,
-  onRemove,
-  onClear,
-}) {
+export default function Carrito() {
+  const { items, itemCount, subtotal, updateQuantity, removeItem, clearCart } = useCart();
+
   return (
     <main className="cart-page">
       <header className="cart-page__header">
@@ -32,12 +28,8 @@ export default function Carrito({
         </section>
       ) : (
         <div className="cart-layout">
-          <CartList
-            items={items}
-            onQuantityChange={onQuantityChange}
-            onRemove={onRemove}
-          />
-          <CartSummary itemCount={itemCount} subtotal={subtotal} onClear={onClear} />
+          <CartList items={items} onQuantityChange={updateQuantity} onRemove={removeItem} />
+          <CartSummary itemCount={itemCount} subtotal={subtotal} onClear={clearCart} />
         </div>
       )}
     </main>

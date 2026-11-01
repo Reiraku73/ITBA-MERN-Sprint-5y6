@@ -32,7 +32,10 @@ export default function ImageViewer({ images, startIndex = 0, onClose, onIndexCh
 
   useDialog({ containerRef: dialogRef, initialFocusRef: closeRef, onClose });
 
-  const go = useCallback((delta) => setIndex((i) => (i + delta + images.length) % images.length), [images.length]);
+  const go = useCallback(
+    (delta) => setIndex((i) => (i + delta + images.length) % images.length),
+    [images.length],
+  );
 
   useEffect(() => {
     onIndexChange?.(index);
@@ -104,7 +107,12 @@ export default function ImageViewer({ images, startIndex = 0, onClose, onIndexCh
           if (Math.abs(dx) >= SWIPE_THRESHOLD && Math.abs(dx) > Math.abs(dy)) go(dx < 0 ? 1 : -1);
         }}
       >
-        <SafeImage key={current.src} src={current.src} alt={current.alt} className="image-viewer__img" />
+        <SafeImage
+          key={current.src}
+          src={current.src}
+          alt={current.alt}
+          className="image-viewer__img"
+        />
         {hasMany && (
           <figcaption className="image-viewer__counter" aria-live="polite">
             {formatCounter(index + 1, images.length)}
@@ -123,6 +131,6 @@ export default function ImageViewer({ images, startIndex = 0, onClose, onIndexCh
         </button>
       )}
     </div>,
-    document.body
+    document.body,
   );
 }

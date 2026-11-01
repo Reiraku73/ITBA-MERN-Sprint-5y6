@@ -46,7 +46,9 @@ export default function ProductGallery({ producto }) {
   }
 
   const mainLabel =
-    total > 1 ? `Ampliar imagen de ${name} (imagen ${current + 1} de ${total})` : `Ampliar imagen de ${name}`;
+    total > 1
+      ? `Ampliar imagen de ${name} (imagen ${current + 1} de ${total})`
+      : `Ampliar imagen de ${name}`;
 
   return (
     <div className="producto-gallery">
@@ -62,7 +64,11 @@ export default function ProductGallery({ producto }) {
                   type="button"
                   className={`producto-gallery__thumb${showMore ? ' producto-gallery__thumb--more' : ''}`}
                   aria-current={!showMore && i === current ? 'true' : undefined}
-                  aria-label={showMore ? `Ver las ${total} imágenes (${extra} más)` : `Ver imagen ${i + 1} de ${total}`}
+                  aria-label={
+                    showMore
+                      ? `Ver las ${total} imágenes (${extra} más)`
+                      : `Ver imagen ${i + 1} de ${total}`
+                  }
                   onClick={() => (showMore ? setViewerStart(i) : setSelected(i))}
                 >
                   <SafeImage src={src} alt="" width={96} height={96} loading="lazy" />
@@ -86,7 +92,13 @@ export default function ProductGallery({ producto }) {
           onClick={() => setViewerStart(current)}
         >
           {/* key: al cambiar de imagen se vuelve a montar y se anima la entrada */}
-          <SafeImage key={images[current]} src={images[current]} alt={name} width={800} height={800} />
+          <SafeImage
+            key={images[current]}
+            src={images[current]}
+            alt={name}
+            width={800}
+            height={800}
+          />
           {total > 1 && (
             <span className="producto-gallery__counter" aria-hidden="true">
               {formatCounter(current + 1, total)}

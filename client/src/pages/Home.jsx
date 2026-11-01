@@ -6,16 +6,16 @@ import SustainableMaterials from '../components/home/SustainableMaterials.jsx';
 import Opinions from '../components/home/Opinions.jsx';
 import Story from '../components/home/StorySection.jsx';
 
-export function Home({ onAgregar }) {
-    return (
-        <main>
-            <HeroCarousel />
-            <Story />
-            <FeaturedProducts onAgregar={onAgregar} />
-            <Benefits />
-            <SustainableMaterials />
-            <Opinions />
-            <NewsLetter />
-        </main>
-    )
+export default function Home() {
+  return (
+    <main>
+      <HeroCarousel />
+      <Story />
+      <FeaturedProducts />
+      <Benefits />
+      <SustainableMaterials />
+      <Opinions />
+      <NewsLetter />
+    </main>
+  );
 }

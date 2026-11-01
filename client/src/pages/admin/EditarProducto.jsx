@@ -44,9 +44,6 @@ export default function EditarProducto() {
   return (
     <main>
       <section>
-        <Link to="/admin/productos" className="admin-volver">
-          <span aria-hidden="true">←</span> Volver al listado
-        </Link>
         <h1>Editar producto</h1>
 
         {cargando && <p>Cargando producto…</p>}

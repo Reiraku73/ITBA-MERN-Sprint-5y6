@@ -1,7 +1,7 @@
-import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import FormField from '../components/ui/FormField.jsx'
-import { EMAIL_VALIDO, TELEFONO_VALIDO } from '../utils/validators.js'
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import FormField from '../components/ui/FormField.jsx';
+import { EMAIL_VALIDO, TELEFONO_VALIDO } from '../utils/validators.js';
 
 const FORM_VACIO = {
   nombre: '',
@@ -10,67 +10,67 @@ const FORM_VACIO = {
   telefono: '',
   password: '',
   confirmacion: '',
-}
+};
 
 function Register({ onRegistrar }) {
-  const [form, setForm] = useState(FORM_VACIO)
-  const [errores, setErrores] = useState({})
-  const navigate = useNavigate()
+  const [form, setForm] = useState(FORM_VACIO);
+  const [errores, setErrores] = useState({});
+  const navigate = useNavigate();
 
   function cambiar(e) {
-    setForm({ ...form, [e.target.name]: e.target.value })
+    setForm({ ...form, [e.target.name]: e.target.value });
   }
 
   function validar(datos) {
-    const nuevosErrores = {}
+    const nuevosErrores = {};
 
     if (!datos.nombre.trim()) {
-      nuevosErrores.nombre = 'Ingresá tu nombre.'
+      nuevosErrores.nombre = 'Ingresá tu nombre.';
     }
 
     if (!datos.apellido.trim()) {
-      nuevosErrores.apellido = 'Ingresá tu apellido.'
+      nuevosErrores.apellido = 'Ingresá tu apellido.';
     }
 
     if (!datos.email.trim()) {
-      nuevosErrores.email = 'Ingresá tu email.'
+      nuevosErrores.email = 'Ingresá tu email.';
     } else if (!EMAIL_VALIDO.test(datos.email)) {
-      nuevosErrores.email = 'Ese email no parece válido (ej: nombre@mail.com).'
+      nuevosErrores.email = 'Ese email no parece válido (ej: nombre@mail.com).';
     }
 
     if (datos.telefono.trim() && !TELEFONO_VALIDO.test(datos.telefono)) {
-      nuevosErrores.telefono = 'Ese teléfono no parece válido.'
+      nuevosErrores.telefono = 'Ese teléfono no parece válido.';
     }
 
     if (datos.password.length < 6) {
-      nuevosErrores.password = 'La contraseña debe tener al menos 6 caracteres.'
+      nuevosErrores.password = 'La contraseña debe tener al menos 6 caracteres.';
     }
 
     if (!datos.confirmacion) {
-      nuevosErrores.confirmacion = 'Repetí tu contraseña.'
+      nuevosErrores.confirmacion = 'Repetí tu contraseña.';
     } else if (datos.confirmacion !== datos.password) {
-      nuevosErrores.confirmacion = 'Las contraseñas no coinciden.'
+      nuevosErrores.confirmacion = 'Las contraseñas no coinciden.';
     }
 
-    return nuevosErrores
+    return nuevosErrores;
   }
 
   function enviar(e) {
-    e.preventDefault()
+    e.preventDefault();
 
-    const erroresEncontrados = validar(form)
-    setErrores(erroresEncontrados)
-    if (Object.keys(erroresEncontrados).length > 0) return
+    const erroresEncontrados = validar(form);
+    setErrores(erroresEncontrados);
+    if (Object.keys(erroresEncontrados).length > 0) return;
 
-    const { confirmacion, ...datos } = form
-    const mensaje = onRegistrar(datos)
+    const { confirmacion, ...datos } = form;
+    const mensaje = onRegistrar(datos);
 
     if (mensaje) {
-      setErrores({ email: mensaje })
-      return
+      setErrores({ email: mensaje });
+      return;
     }
 
-    navigate('/login')
+    navigate('/login');
   }
 
   return (
@@ -150,7 +150,7 @@ function Register({ onRegistrar }) {
         </p>
       </div>
     </section>
-  )
+  );
 }
 
-export default Register
+export default Register;

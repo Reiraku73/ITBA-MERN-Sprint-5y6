@@ -5,9 +5,11 @@ function FormField({ id, label, error, ...inputProps }) {
         <input id={id} name={id} placeholder=" " {...inputProps} />
         <label htmlFor={id}>{label}</label>
       </div>
-      <p className="form-field__error" role="alert">{error}</p>
+      <p className="form-field__error" role="alert">
+        {error}
+      </p>
     </div>
-  )
+  );
 }
 
-export default FormField
+export default FormField;

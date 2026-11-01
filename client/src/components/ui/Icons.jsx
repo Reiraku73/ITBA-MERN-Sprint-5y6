@@ -76,7 +76,12 @@ export const ExpandIcon = () => (
 export const ChevronIcon = ({ direction = 'right' }) => (
   <Icon
     style={{
-      transform: direction === 'left' ? 'rotate(180deg)' : direction === 'down' ? 'rotate(90deg)' : undefined,
+      transform:
+        direction === 'left'
+          ? 'rotate(180deg)'
+          : direction === 'down'
+            ? 'rotate(90deg)'
+            : undefined,
     }}
   >
     <path d="M9 5l7 7-7 7" />

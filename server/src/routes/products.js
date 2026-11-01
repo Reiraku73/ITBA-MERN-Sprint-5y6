@@ -10,8 +10,8 @@ import {
 const router = Router();
 
 router.get('/', getProductos);
-router.get('/:id', getProductoById)
-router.post('/', createProducto)
+router.get('/:id', getProductoById);
+router.post('/', createProducto);
 router.put('/:id', updateProducto);
 router.delete('/:id', deleteProducto);
 

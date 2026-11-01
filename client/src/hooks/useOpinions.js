@@ -1,32 +1,16 @@
-import { useState, useEffect } from 'react'
+import { getOpiniones } from '../services/opinionService';
+import { getErrorMessage } from '../services/api';
+import { useApiQuery } from './useApiQuery';
 
-// Misma base que el resto de la app (VITE_API_URL): así en el deploy no
-// queda apuntando a localhost.
-const API_BASE = (import.meta.env.VITE_API_URL ?? 'http://localhost:3001/api').replace(/\/+$/, '')
-const API_URL = `${API_BASE}/opiniones`
-
+// Mismo patrón que useProductos: pasa por el cliente HTTP único
+// (services/api.js), así la URL base, el timeout y los errores salen de un
+// solo lugar. Devuelve `error` como texto listo para mostrar.
 export function useOpinions() {
-  const [opiniones, setOpiniones] = useState([])
-  const [cargando, setCargando] = useState(true)
-  const [error, setError] = useState(null)
-
-  const fetchOpiniones = async () => {
-    try {
-      setCargando(true)
-      setError(null)
-      const res = await fetch(API_URL)
-      if (!res.ok) throw new Error('Error al cargar las opiniones')
-      setOpiniones(await res.json())
-    } catch (err) {
-      setError(err.message)
-    } finally {
-      setCargando(false)
-    }
-  }
-
-  useEffect(() => {
-    fetchOpiniones()
-  }, [])
-
-  return { opiniones, cargando, error, reintentar: fetchOpiniones }
+  const { data, loading, error, reload } = useApiQuery((signal) => getOpiniones({ signal }), []);
+  return {
+    opiniones: data ?? [],
+    cargando: loading,
+    error: error ? getErrorMessage(error) : null,
+    reintentar: reload,
+  };
 }
