@@ -2188,3 +2188,18 @@ main > section {
 .admin-listado__info { display: flex; flex-direction: column; }
 .admin-listado__info span { color: var(--color-ink-soft); font-size: 0.9rem; }
 .admin-listado__acciones { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-1); }
+
+.admin-volver {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+  font-weight: 500;
+  text-decoration: none;
+  color: inherit;
+}
+
+.admin-volver:hover,
+.admin-volver:focus-visible {
+  text-decoration: underline;
+}

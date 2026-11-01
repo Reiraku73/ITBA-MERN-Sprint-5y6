@@ -35,10 +35,10 @@ export default function ProductosAdmin() {
   const termino = busqueda.trim().toLowerCase();
   const visibles = termino
     ? productos.filter(
-        (p) =>
-          p.nombre?.toLowerCase().includes(termino) ||
-          p.categoria?.toLowerCase().includes(termino),
-      )
+      (p) =>
+        p.nombre?.toLowerCase().includes(termino) ||
+        p.categoria?.toLowerCase().includes(termino),
+    )
     : productos;
 
   async function handleEliminar(producto) {
@@ -60,6 +60,9 @@ export default function ProductosAdmin() {
   return (
     <main>
       <section className="admin-listado">
+        <Link to="/" className="admin-volver">
+          <span aria-hidden="true">←</span> Volver al inicio
+        </Link>
         <div className="admin-listado__encabezado">
           <h1>Administrar productos</h1>
           <Link to="/admin/crear-producto" className="btn btn--primary">
